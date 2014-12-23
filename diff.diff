@@ -1,0 +1,21 @@
+diff --git b/otherFile.txt b/otherFile.txt
+new file mode 100644
+index 0000000..5ccf89d
+--- /dev/null
++++ b/otherFile.txt
+@@ -0,0 +1 @@
++World here!
+diff --git a/someFile.txt a/someFile.txt
+deleted file mode 100644
+index 980a0d5..0000000
+--- a/someFile.txt
++++ /dev/null
+@@ -1 +0,0 @@
+-Hello World!
+diff --git a/thirdFile.txt a/thirdFile.txt
+deleted file mode 100644
+index ff69f86..0000000
+--- a/thirdFile.txt
++++ /dev/null
+@@ -1 +0,0 @@
+-Yo
