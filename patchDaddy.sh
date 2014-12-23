@@ -4,35 +4,46 @@
 # @description	Parses unified diff format for new and deleted filenames
 # @author		Chris Saunders
 
-counter=0
-newFiles=()
-deletedFiles=()
 
-while read line
-do
-	if [[ $line == *"new file mode"* ]]
+function patchDaddy {
+	if [ "$#" -ne 1 ]
 	then
-		counter=0
-		mode="created"
-	elif [[ $line == *"deleted file mode"* ]]
-	then
-		counter=1
-		mode="deleted"
+		echo "Usage: patchDaddy <diffFile.diff>"
+		return
 	fi
 
-	if [[ $counter -eq 3 ]]
-	then
-		if [[ $mode == "created" ]]
+	echo $line
+
+	counter=0
+	newFiles=()
+	deletedFiles=()
+
+	while read line
+	do
+		if [[ $line == *"new file mode"* ]]
 		then
-			newFiles+=("${line:4}")
-		elif [[ $mode == "deleted" ]]
+			counter=0
+			mode="created"
+		elif [[ $line == *"deleted file mode"* ]]
 		then
-			deletedFiles+=("${line:4}")
+			counter=1
+			mode="deleted"
 		fi
-	fi
-	
-	counter=$((counter + 1))
-done < $1
 
-echo "newFiles: ${newFiles[@]}"
-echo "deletedFiles: ${deletedFiles[@]}"
+		if [[ $counter -eq 3 ]]
+		then
+			if [[ $mode == "created" ]]
+			then
+				newFiles+=("${line:4}")
+			elif [[ $mode == "deleted" ]]
+			then
+				deletedFiles+=("${line:4}")
+			fi
+		fi
+
+		counter=$((counter + 1))
+	done < $1
+
+	echo "newFiles: ${newFiles[@]}"
+	echo "deletedFiles: ${deletedFiles[@]}"
+}
