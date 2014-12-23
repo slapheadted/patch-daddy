@@ -4,10 +4,6 @@
 # @description	Parses unified diff format for new and deleted filenames
 # @author		Chris Saunders
 
-echo "=============================="
-echo "  Patch Daddy - sourced  			"
-echo "=============================="
-
 function patchDaddy {
 	if [ "$#" -ne 1 ]
 	then
