@@ -43,5 +43,6 @@ function patchDaddy {
 		counter=$((counter + 1))
 	done < $1
 
-	echo "new: ${newFiles[@]} | deleted: ${deletedFiles[@]}"
+	# format returns <new_files> | <deleted_files>
+	echo "${newFiles[@]} | ${deletedFiles[@]}"
 }
