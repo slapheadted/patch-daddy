@@ -33,10 +33,10 @@ function patchDaddy {
 		then
 			if [[ $mode == "created" ]]
 			then
-				newFiles+=("${line:4}")
+				newFiles+=("${line:6}")
 			elif [[ $mode == "deleted" ]]
 			then
-				deletedFiles+=("${line:4}")
+				deletedFiles+=("${line:6}")
 			fi
 		fi
 
