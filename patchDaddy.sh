@@ -4,11 +4,6 @@
 # @description	Parses unified diff format for new and deleted filenames
 # @author		Chris Saunders
 
-
-#
-# Sets two global vars as a result
-# pd_new_files (tf adds)
-# pd_deleted_files (tf deletes)
 function patchDaddy {
 	if [ "$#" -ne 1 ]
 	then
@@ -16,11 +11,11 @@ function patchDaddy {
 		return
 	fi
 
-	# echo $line
+	echo $line
 
 	counter=0
-	pd_new_files=()
-	pd_deleted_files=()
+	newFiles=()
+	deletedFiles=()
 
 	while read line
 	do
@@ -38,13 +33,16 @@ function patchDaddy {
 		then
 			if [[ $mode == "created" ]]
 			then
-				pd_new_files+=("${line:6}")
+				newFiles+=("${line:4}")
 			elif [[ $mode == "deleted" ]]
 			then
-				pd_deleted_files+=("${line:6}")
+				deletedFiles+=("${line:4}")
 			fi
 		fi
 
 		counter=$((counter + 1))
 	done < $1
+
+	echo "newFiles: ${newFiles[@]}"
+	echo "deletedFiles: ${deletedFiles[@]}"
 }
